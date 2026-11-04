@@ -1,7 +1,7 @@
 # `@sito/feature-usage`
 
 > **Alpha.** API may change between `0.1.0-alpha.*` tags. Install from git by tag:
-> `"@sito/feature-usage": "github:sito8943/sito-feature-usage-js#v0.1.0-alpha.1"`.
+> `"@sito/feature-usage": "github:sito8943/sito-feature-usage-js#v0.1.0-alpha.2"`.
 > `dist/` is committed so consumers need no build step; run `pnpm build` and commit `dist/` with
 > every change.
 
@@ -77,7 +77,8 @@ Without a provider, the hooks do nothing.
 | `registerCatalogue` | `true` | |
 | `onError` | — | |
 
-`tracker.flush()`, `tracker.registerCatalogue()` and `tracker.stop()` are also available.
+`tracker.flush()`, `tracker.registerCatalogue()`, `tracker.stop()` and `tracker.clear()` (forget queued
+events and stored state, e.g. when consent is withdrawn) are also available.
 
 ## Scripts
 

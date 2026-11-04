@@ -195,6 +195,18 @@ describe("createTracker", () => {
     expect(stored).toHaveLength(500);
   });
 
+  it("clear forgets queued events and stored state", async () => {
+    const transport = fakeTransport(["retry"]);
+    const { tracker, storage } = make({ transport, registerCatalogue: true });
+    await tracker.registerCatalogue();
+    tracker.track("page.home");
+    expect(storage!.getItem("sito-feature-usage:wallet:queue")).not.toBeNull();
+    tracker.clear();
+    expect([...(storage as ReturnType<typeof memoryStorage>).data.keys()]).toEqual([]);
+    await tracker.flush();
+    expect(transport.events()).toHaveLength(0);
+  });
+
   it("works without storage", async () => {
     const { tracker, transport } = make({ storage: null });
     tracker.track("page.home");

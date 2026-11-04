@@ -88,6 +88,7 @@ const disabledTracker = {
     flush: () => Promise.resolve(),
     registerCatalogue: () => Promise.resolve(),
     stop: () => undefined,
+    clear: () => undefined,
 };
 /** A tracker that does nothing: for tests, previews and apps without an endpoint. */
 const noopTracker = () => disabledTracker;
@@ -279,6 +280,11 @@ function createTracker(options) {
         stop: () => {
             while (cleanups.length)
                 cleanups.pop()?.();
+        },
+        clear: () => {
+            queue = [];
+            write(queueKey, null);
+            write(catalogueKey, null);
         },
     };
 }

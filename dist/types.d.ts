@@ -54,6 +54,8 @@ export type Tracker<F extends string = string> = {
     registerCatalogue(): Promise<void>;
     /** Stops timers and listeners. Queued events stay in storage for the next start. */
     stop(): void;
+    /** Forgets queued events and everything kept in storage (e.g. consent withdrawn). */
+    clear(): void;
 };
 /** Feature union of a catalogue: `FeatureOf<typeof FEATURES>`. */
 export type FeatureOf<T extends readonly string[]> = T[number];

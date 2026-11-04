@@ -49,6 +49,7 @@ const disabledTracker: Tracker<never> = {
   flush: () => Promise.resolve(),
   registerCatalogue: () => Promise.resolve(),
   stop: () => undefined,
+  clear: () => undefined,
 };
 
 /** A tracker that does nothing: for tests, previews and apps without an endpoint. */
@@ -248,6 +249,11 @@ export function createTracker<const F extends string>(options: TrackerOptions<F>
     registerCatalogue,
     stop: () => {
       while (cleanups.length) cleanups.pop()?.();
+    },
+    clear: () => {
+      queue = [];
+      write(queueKey, null);
+      write(catalogueKey, null);
     },
   };
 }

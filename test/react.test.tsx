@@ -16,6 +16,7 @@ const spyTracker = () => {
     flush: vi.fn(async () => undefined),
     registerCatalogue: vi.fn(async () => undefined),
     stop: vi.fn(),
+    clear: vi.fn(),
   };
   return { tracker, tracked };
 };
