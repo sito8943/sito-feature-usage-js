@@ -1,6 +1,6 @@
 {
   "name": "@sito/feature-usage",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "Anonymous feature usage tracking for Sito applications (client for sito-feature-usage)",
   "author": "Sito",
   "license": "MIT",

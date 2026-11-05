@@ -1,4 +1,4 @@
-import type { SendResult, Transport } from "../types";
+import type { SendResult, Transport } from "../types.js";
 export declare const resultOfStatus: (status: number) => SendResult;
 /** POSTs with fetch. Works in browsers, Tauri webviews and React Native. */
 export declare function fetchTransport(fetchImpl?: typeof fetch): Transport;

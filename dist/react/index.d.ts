@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import type { Tracker } from "../types";
+import type { Tracker } from "../types.js";
 export type FeatureUsageProviderProps<F extends string> = {
     tracker: Tracker<F>;
     children?: ReactNode;

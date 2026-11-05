@@ -1,11 +1,11 @@
-import { webTransport } from "./transports";
+import { webTransport } from "./transports/index.js";
 import type {
   FlushOptions,
   SendResult,
   StorageLike,
   Tracker,
   TrackerOptions,
-} from "./types";
+} from "./types.js";
 
 // Mirrors the service's rules (server/internal/usage).
 const FEATURE_PATTERN = /^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)*$/;
