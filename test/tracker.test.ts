@@ -250,6 +250,19 @@ describe("createTracker", () => {
     expect(transport.catalogues()).toHaveLength(2);
   });
 
+  it("retries an undelivered catalogue on the auto-flush interval", async () => {
+    vi.useFakeTimers();
+    const transport = fakeTransport(["retry"]);
+    const { tracker } = make({ transport, autoFlush: true, flushIntervalMs: 1000 });
+    await tracker.registerCatalogue();
+    expect(transport.catalogues()).toHaveLength(1);
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(transport.catalogues()).toHaveLength(2);
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(transport.catalogues()).toHaveLength(2);
+    tracker.stop();
+  });
+
   it("flushes on its interval until stopped", async () => {
     vi.useFakeTimers();
     const { tracker, transport } = make({ autoFlush: true, flushIntervalMs: 1000 });

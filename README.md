@@ -1,8 +1,8 @@
 # `@sito/feature-usage`
 
 > **Alpha.** API may change between `0.1.0-alpha.*` tags. Install from git by tag:
-> `"@sito/feature-usage": "github:sito8943/sito-feature-usage-js#v0.1.0-alpha.3"`. With npm, use the tarball
-> `https://codeload.github.com/sito8943/sito-feature-usage-js/tar.gz/refs/tags/v0.1.0-alpha.3` (npm cannot prepare
+> `"@sito/feature-usage": "github:sito8943/sito-feature-usage-js#v0.1.0-alpha.4"`. With npm, use the tarball
+> `https://codeload.github.com/sito8943/sito-feature-usage-js/tar.gz/refs/tags/v0.1.0-alpha.4` (npm cannot prepare
 > this git dependency).
 > `dist/` is committed so consumers need no build step; run `pnpm build` and commit `dist/` with
 > every change.
