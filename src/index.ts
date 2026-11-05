@@ -1,5 +1,5 @@
-export { createTracker, isValidFeature, noopTracker } from "./tracker";
-export { fetchTransport, resultOfStatus, webTransport } from "./transports";
+export { createTracker, isValidFeature, noopTracker } from "./tracker.js";
+export { fetchTransport, resultOfStatus, webTransport } from "./transports/index.js";
 export type {
   FeatureOf,
   FlushOptions,
@@ -9,4 +9,4 @@ export type {
   Tracker,
   TrackerOptions,
   Transport,
-} from "./types";
+} from "./types.js";

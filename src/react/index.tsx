@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, type ReactNode } from "react";
 
-import { noopTracker } from "../tracker";
-import type { Tracker } from "../types";
+import { noopTracker } from "../tracker.js";
+import type { Tracker } from "../types.js";
 
 const FeatureUsageContext = createContext<Tracker<string> | null>(null);
 

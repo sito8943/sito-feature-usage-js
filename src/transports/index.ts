@@ -1,4 +1,4 @@
-import type { SendResult, Transport } from "../types";
+import type { SendResult, Transport } from "../types.js";
 
 // text/plain keeps the request "simple": no CORS preflight, also from Tauri webviews.
 const CONTENT_TYPE = "text/plain;charset=UTF-8";

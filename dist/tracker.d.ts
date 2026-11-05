@@ -1,4 +1,4 @@
-import type { Tracker, TrackerOptions } from "./types";
+import type { Tracker, TrackerOptions } from "./types.js";
 export declare const isValidFeature: (feature: string) => boolean;
 /** A tracker that does nothing: for tests, previews and apps without an endpoint. */
 export declare const noopTracker: <F extends string = string>() => Tracker<F>;
