@@ -183,6 +183,10 @@ export function createTracker<const F extends string>(options: TrackerOptions<F>
   };
 
   let catalogueInFlight: Promise<void> | null = null;
+  // The catalogue still has to reach the service (it failed offline, on a server error or before
+  // CORS allowed the origin). Long-lived apps (desktop) may not restart for days, so the
+  // auto-flush retries it instead of waiting for the next start.
+  let cataloguePending = false;
 
   // Concurrent calls (the one on start and a manual one) share one request.
   const registerCatalogue = (): Promise<void> => {
@@ -198,6 +202,7 @@ export function createTracker<const F extends string>(options: TrackerOptions<F>
       report(`catalogue feature "${f}" is not a dotted slug; left out`);
       return false;
     });
+    cataloguePending = false;
     if (valid.length === 0) return;
     if (valid.length > MAX_CATALOGUE) {
       report(`a catalogue lists at most ${MAX_CATALOGUE} features; ${valid.length} given`);
@@ -214,19 +219,24 @@ export function createTracker<const F extends string>(options: TrackerOptions<F>
       result = "retry";
     }
     if (result === "sent") write(catalogueKey, marker);
+    if (result === "retry") cataloguePending = true;
     if (result === "rejected") report(`the service refused the catalogue of "${app}"`);
   };
 
   const cleanups: Array<() => void> = [];
   if (autoFlush) {
-    const timer = setInterval(() => void flush(), flushIntervalMs);
+    const autoFlushTick = () => {
+      if (cataloguePending) void registerCatalogue();
+      void flush();
+    };
+    const timer = setInterval(autoFlushTick, flushIntervalMs);
     cleanups.push(() => clearInterval(timer));
     if (typeof document !== "undefined" && typeof window !== "undefined") {
       const onHidden = () => {
         if (document.visibilityState === "hidden") void flush({ unloading: true });
       };
       const onPageHide = () => void flush({ unloading: true });
-      const onOnline = () => void flush();
+      const onOnline = autoFlushTick;
       document.addEventListener("visibilitychange", onHidden);
       window.addEventListener("pagehide", onPageHide);
       window.addEventListener("online", onOnline);
